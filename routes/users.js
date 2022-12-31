@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 import { v4 as uuidv4 } from "uuid";
 
-const users = [];
+let users = [];
 
 router.get("/", (req, res) => {
   console.log("get user", users);
@@ -17,6 +17,20 @@ router.post("/", (req, res) => {
   console.log(newUser);
   res.send(`${newUser.firname} added todb`);
   console.log("users", users);
+});
+
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+  const foundUser = users.find((user) => user.id === id);
+
+  res.send(foundUser);
+});
+
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  users = users.filter((user) => user.id !== id);
+
+  res.send(users);
 });
 
 export default router;
