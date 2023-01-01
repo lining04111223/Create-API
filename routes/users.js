@@ -33,4 +33,17 @@ router.delete("/:id", (req, res) => {
   res.send(users);
 });
 
+router.patch("/:id", (req, res) => {
+  const id = req.params.id;
+  const { firname, lastName, age } = req.body;
+
+  const updatedUser = users.find((user) => user.id === id);
+
+  if (firname) updatedUser.firname = firname;
+  if (lastName) updatedUser.lastName = lastName;
+  if (age) updatedUser.age = age;
+
+  res.send(users);
+});
+
 export default router;
